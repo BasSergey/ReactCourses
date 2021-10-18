@@ -2,25 +2,43 @@
   background-color: green; 
   border: none;
   border-radius: 30px;
-  padding: 15px 32px;
+  padding: 12px 40px;
   color: rgb(0, 0, 0);
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 5px;
+  box-shadow: 0px 4px 10px black;
+  cursor: pointer;
+  transition: background-color .5s ;
+}
+.ok:focus{
+  box-shadow: 0px 4px 10px green;
+}
+.ok:hover{
+  background-color: rgb(42, 95, 42);
 }
 .cancel {
   background-color: red; 
   border: none;
   border-radius: 30px;
-  padding: 15px 32px;
+  padding: 12px 40px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 5px;
+  box-shadow: 0px 4px 10px black;
+  cursor: pointer;
+  transition: background-color .5s ;
 }
-.subcontainer{
+.cancel:focus{
+  box-shadow: 0px 4px 10px red;
+}
+.cancel:hover{
+  background-color: rgb(158, 38, 38);
+}
+.subContainer{
   width: 500px;
   display: flex;
   justify-content: space-between;

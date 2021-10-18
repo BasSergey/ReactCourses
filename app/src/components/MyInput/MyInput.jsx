@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MyInput.css';
 
+const MyInput = (props) => {
 
-const MyInput = (props) =>{
     return (
-    <input className={props.className}>
-    </input>
+        <input className={props.className}>
+        </input>
     )
 }
-
 
 export default MyInput;
