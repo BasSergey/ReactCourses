@@ -1,12 +1,16 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import './MyButton.css';
 
 
 const MyButton = (props) =>{
+    const [value, setValue] = useState('default value')
     return (
-    <button className={props.className}>
+    <>
+        <div>{value}</div>
+        <button onClick={()=>setValue("chabge valueS")} className={props.className}>
         {props.children}
-    </button>
+        </button>
+    </> 
     )
 }
 
