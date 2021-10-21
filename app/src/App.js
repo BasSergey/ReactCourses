@@ -1,108 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "./components/NavBar";
-import UserList from "./components/UserList";
+import AppRoutes  from "./components/AppRoutes";
+import { BrowserRouter } from "react-router-dom";
+
 
 const App = () => {
-  const [showFormUser, setShowFormUser] = useState(false);
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'John',
-      phone: '7788'
-    },
-    {
-      id: 2,
-      name: 'Thanos',
-      phone: '50%'
-    },
-    {
-      id: 3,
-      name: 'Boris',
-      phone: '5467'
-    },
-  ]);
-  const [user, setUser] = useState(
-    {
-      name: '',
-      phone: '',
-    });
+    return (
 
-  const onChange = (e) => {
-    if (e.target.id == "name") {
-      setUser({ ...user, name: e.target.value });
-    } else {
-      setUser({ ...user, phone: e.target.value });
-    }
-  }
+        <BrowserRouter>
+            <NavBar />
+            <AppRoutes />
+        </BrowserRouter>
 
-  const addUser = () => {
-    const id = Math.random() * 1
-    setUser({ ...user, id: id })
-    setUsers([...users, user]);
-    setUser({
-      name: '',
-      phone: '',
-    });
-  }
-
-  const removeUser = (id) => {
-    const confirm = window.confirm("Реально удалить?")
-    if (confirm == true) setUsers(users.filter((user) => user.id !== id)) //для проверки на удаление  
-  };
-  const clear = () => {
-    setUser({ name: '', phone: '' })
-  }
-  console.log(user);
-
-  return (
-    <div className="App">
-      <NavBar />
-      <div className="container">
-        <div className="row m-1">
-          <div className="col s4">
-            <a className="waves-effect waves-light btn"
-              onClick={() => setShowFormUser(!showFormUser)}
-            >
-              Add user
-            </a>
-          </div>
-          <div className="col s8">
-            {showFormUser &&
-              <>
-                <div className="input-field col s6">
-                  <i className="material-icons prefix">account_circle</i>
-                  <input
-                    id="name"
-                    type="text"
-                    class="validate"
-                    value={user.name}
-                    placeholder="Enter Name"
-                    onChange={onChange}
-                  />
-                  <a className="waves-effect waves-light btn m-1"
-                    onClick={() => addUser()}>Add</a>
-                </div>
-                <div className="input-field col s6">
-                  <i className="material-icons prefix">phone</i>
-                  <input
-                    id="phone"
-                    type="tel"
-                    value={user.phone}
-                    className="validate"
-                    placeholder="Enter Phone"
-                    onChange={onChange}
-                  />
-                  <a className="waves-effect waves-light right btn m-1"
-                    onClick={() => clear()}>Cancel</a>
-                </div>
-              </>}
-          </div>
-        </div>
-        <UserList search deleteUser={removeUser}>{users}</UserList>
-
-      </div>
-    </div>
-  );
+    )
 }
 
 export default App;
