@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { devices } from "../components/DevicesItem";
+import index from "../index.css"
 
 const Devices = () => {
     const [phones, setPhones] = useState(null);
@@ -62,6 +63,7 @@ const Devices = () => {
         </tbody>
       </table>
     </div>
+    
   );
 };
 export default Devices;
