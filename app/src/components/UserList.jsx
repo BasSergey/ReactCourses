@@ -45,8 +45,11 @@ const UserList = (props) => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Username</th>
             <th>Phone</th>
+            <th>Email</th>
             <th>Delete</th>
+
           </tr>
         </thead>
 
@@ -55,7 +58,9 @@ const UserList = (props) => {
             filter.map((user) => (
               <tr key={user.id}>
                 <td>{user.name}</td>
+                <td>{user.username}</td>
                 <td>{user.phone}</td>
+                <td>{user.email}</td>
                 <i
                   className="material-icons"
                   onClick={() => props.deleteUser(user.id)}

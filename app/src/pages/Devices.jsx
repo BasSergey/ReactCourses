@@ -24,6 +24,7 @@ const Devices = () => {
     <div className="container">
       <h3>ALL Devices</h3>
       <label>Browser Select</label>
+    <div>
       <select onChange={onChange} className="browser-default" >
         <option value=""  >
           Choose brand phone
@@ -36,7 +37,9 @@ const Devices = () => {
         <option value="3">Nokia</option>
         <option value="4">Huawei</option> */}
       </select>
+      </div>
 
+      
       <table>
         <thead>
           <tr>
