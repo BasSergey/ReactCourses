@@ -10,7 +10,7 @@ const UserList = (props) => {
 
   const getSearch = () => {
     if (filter) {
-      //если данный в fiter есть
+      //если данный в fiter ест
       return filter;
     }
     return props.children;
@@ -20,7 +20,7 @@ const UserList = (props) => {
     // console.log(e.target.value)
     setFilter(
       props.children.filter((user) =>
-        user.name.toLowerCase().includes(e.target.value.toLowerCase())
+        user.email.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
   }; //перебирание пользоватей с выводом в консоль(до сейчас setFilter ), toLowerCase() для того чтобы в независимости от высокого низкого текста, он выводился

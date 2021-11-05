@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(163, 163, 163);
+  background-color: rgba(115, 123, 124, 0.582);
 }
 
 code {
@@ -116,4 +116,36 @@ code {
 .homeHeader {
   font-size: 30px;
   text-align: center;
+}
+
+.row .col.m6 {
+  width: 80%;
+  margin-left: auto;
+  left: auto;
+  right: auto;
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+}
+
+.containerPosts {
+
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 0 auto;
+
+  grid-template-areas:
+    "button search"
+    "row row";
+}
+
+.search {
+  grid-area: search;
+  width: 100%;
+}
+.button{
+  grid-area: button;
+ margin-left: 200px;
 }
