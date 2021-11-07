@@ -111,6 +111,17 @@ const Posts = (props) => {
 
   return (
     <>
+
+{loading ? (
+            <Loader
+              className="loader-center"
+              type="BeatLoader	"
+              color="#ee6e73"
+              height={100}
+              width={100}
+              timeout={delay} //3 secs
+            />
+          ) : (
       <div className="App">
         <div className="containerPosts">
 
@@ -275,26 +286,9 @@ const Posts = (props) => {
               </div>
             </div>
             ))}
-
-
-
-{/* 
-        {loading ? (
-            <Loader
-              className="loader-center"
-              type="BeatLoader	"
-              color="#ee6e73"
-              height={100}
-              width={100}
-              timeout={delay} //3 secs
-            />
-          ) : (
-            <PostsList search deletePost={deletePost}>
-              {posts}
-            </PostsList>
-          )} */}
         </div>
       </div>
+          )}
     </>
   );
 };
