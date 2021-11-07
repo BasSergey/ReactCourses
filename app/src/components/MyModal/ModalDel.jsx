@@ -1,18 +1,13 @@
-import React from "react"; /*rcfe*/
 
+import React from "react";
 
-const ModalDel = ({ visible, setVisible, children }) => {
-  /*visible, setVisible, children = props. В фигурных чтобы не писать кадлый раз . так мы его сразу раскрываем*/
+const Modal = ({ visible, setVisible, children }) => {
+  //we can open props by using {}
   return (
     <>
-          <div className={visible ? "modal open" : "modal"}>
+      <div className={visible ? "modal open" : "modal"}>
         <div className="modal-content">
-          <i
-            class="material-icons pointer"
-            onClick={() => {
-              setVisible(false);
-            }}
-          >
+          <i class="material-icons pointer"onClick={() => {setVisible(false);}}>
             close
           </i>
           <div className="modal-body">{children}</div>
@@ -28,4 +23,4 @@ const ModalDel = ({ visible, setVisible, children }) => {
   );
 };
 
-export default  ModalDel;
+export default Modal;

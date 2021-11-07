@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from "react";
-import PostsList from "../components/PostsList";
 import MyModal from "../components/MyModal/MyModal";
+import ModalDel from "../components/MyModal/ModalDel";
+import ModalPost from "../components/MyModal/ModalPost";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-const Posts = () => {
+const Posts = (props) => {
   const delay = 1000;
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState(null);
+  const [showModal, setshowModal] = useState(false);
+  const [idDel, setId] = useState();
+  const [filter, setFilter] = useState(posts);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [ShowModalPost, setShowModalPost] = useState(false);
+  const [modalPost, setModalPost] = useState({
+    title: "",
+    body: "",
+    id: "",
+  });
 
+  const getSearch = () => {
+    if (filter) {
+      return filter;
+    }
+    return posts;
+  };
+  const postsSearch = getSearch();
 
   const fetchPosts = async () => {
     const posts = await axios.get("https://jsonplaceholder.typicode.com/posts");
@@ -18,7 +37,7 @@ const Posts = () => {
     fetchPosts();
   }, []);
 
-  const [posts, setPosts] = useState(null);
+
   const [post, setPost] = useState({
     userId: "",
     id: "",
@@ -36,13 +55,22 @@ const Posts = () => {
     else if(e.target.id == "title") {
       setPost({ ...post, title: e.target.value });
     }
-    else{
+    else if(e.target.id == "body"){
       setPost({ ...post, body: e.target.value });
+    }
+    else{
+      setFilter(
+        posts.filter((post) =>
+          post.title.toLowerCase().includes(e.target.value.toLowerCase())+
+          post.body.toLowerCase().includes(e.target.value.toLowerCase())
+          
+        )
+      );
     }
     
   };
 
-  console.log(post);
+
 
   const addPost = () => {
     const id = Math.random() * 1;
@@ -56,20 +84,57 @@ const Posts = () => {
     });
   };
 
-  const removePost = (id) => {
-    const confirm = window.confirm("Реально удалить?")
-    if (confirm == true) setPosts(posts.filter((post) => post.id !== id)) //для проверки на удаление
-  };
   const clear = () => {
     setPost({ userId: "", id: "", title: "", body: "" });
   };
-  console.log(post);
-  const [showModal, setshowModal] = useState(false);
+
+
+  const showModalFunc = (id) => {
+    setShowModalDelete(!showModalDelete);
+    setId(id);
+  };
+
+  const deletePost = () => {
+    setPosts(posts.filter((post) => post.id !== idDel));
+    setShowModalDelete(!showModalDelete);
+  };
+
+  const showPostFunc = (id, body, title, userId) => {
+    setModalPost({
+      title: title,
+      body: body,
+      id: id,
+      userId: userId
+    });
+    setShowModalPost(!ShowModalPost);
+  };
 
   return (
     <>
       <div className="App">
         <div className="containerPosts">
+
+        <ModalDel visible={showModalDelete} setVisible={setShowModalDelete}>
+          <h6>
+              Точно удалить?
+          </h6>
+          <a
+            class="waves-effect waves-light btn-large right"
+            onClick={() => deletePost()}
+          >
+            Yes
+          </a>
+          <a
+            class="waves-effect waves-light btn-large left"
+            onClick={() => setShowModalDelete(!showModalDelete)}
+          >
+            No
+          </a>
+        </ModalDel>
+
+
+
+
 
         <MyModal visible={showModal} setVisible={setshowModal}>
           {
@@ -134,17 +199,86 @@ const Posts = () => {
             </>
           }
         </MyModal>
+
+
+        <ModalPost visible={ShowModalPost} setVisible={setShowModalPost}>
+        <div class="row">
+            <div class="col s12 m6" >
+              <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                  <h5 class="card-title">{modalPost.title}</h5>
+                  <p>{modalPost.body}</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">{modalPost.userId}</a>
+                  <a href="#">{modalPost.id}</a>
+                  <i
+                    className="material-icons"
+                  >
+                    delete
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ModalPost>
+
+
+
         <div className="row m-1 button">
           <div className="col s4">
             <a
               className="waves-effect waves-light btn"
               onClick={() => setshowModal(true)}
             >
-              Add user
+              Add post
             </a>
-          
           </div>
         </div>
+
+
+        <div className="row search">
+          <div className="inpyut-field col s6">
+            <textarea
+              id="icon_prefix2"
+              className="materialize-textarea"
+              onChange={onChange}
+              placeholder="Search by title"
+            ></textarea>
+          </div>
+        </div>
+
+
+        {postsSearch &&
+            postsSearch.map((posts) => (
+              <div class="row" >
+              <div class="col s12 m6">
+                <div class="card blue-grey darken-1">
+                  <div class="card-content white-text" 
+                onClick={() =>
+                  showPostFunc(posts.id, posts.body, posts.title, posts.userId)
+                } >
+                    <h5 class="card-title">{posts.title}</h5>
+                    <p>{posts.body}</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#">{posts.userId}</a>
+                    <a href="#">{posts.id}</a>
+                    <i
+                      className="material-icons"
+                      onClick={() => showModalFunc(posts.id)}
+                    >
+                      delete
+                    </i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ))}
+
+
+
+{/* 
         {loading ? (
             <Loader
               className="loader-center"
@@ -155,10 +289,10 @@ const Posts = () => {
               timeout={delay} //3 secs
             />
           ) : (
-            <PostsList search deletePost={removePost}>
+            <PostsList search deletePost={deletePost}>
               {posts}
             </PostsList>
-          )}
+          )} */}
         </div>
       </div>
     </>
