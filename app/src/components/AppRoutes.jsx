@@ -14,7 +14,7 @@ const {isAuth, setIsAuth} = useContext(AuthContext);
 const [loading, setLoading] = useState(true);
 setTimeout(()=>{
   setLoading(false)
-},3000)
+},1000)
 if(loading){
   return <Loader color="#ee6e73" timeout={3000}/>
 }
