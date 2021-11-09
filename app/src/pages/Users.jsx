@@ -68,7 +68,7 @@ const Users = () => {
   return (
     <div className="App">
       <div className="container">
-        <button onClick={() => fetchUsers()}>LALALA</button>
+        {/* <button onClick={() => fetchUsers()}>LALALA</button> */}
 
         <MyModal visible={showModal} setVisible={setshowModal}>
           {
