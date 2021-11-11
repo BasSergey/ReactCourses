@@ -4,6 +4,10 @@ import AuthContext from "../context";
 
 const NavBar = () => {
   const {setIsAuth} = useContext(AuthContext)
+  const logout = ()=>{    //для пароля
+    localStorage.clear(); 
+    setIsAuth(false)    
+  }
   return (
     <nav>
       <div className="nav-wrapper">
@@ -15,7 +19,7 @@ const NavBar = () => {
           <li><Link to='/posts'>Posts</Link></li>
           <a 
           class="waves-effect waves-light btn"
-          onClick={()=>setIsAuth(false)}
+          onClick={()=>logout()}
           ><i class="material-icons right">exit_to_app</i>button</a>
         </ul>
       </div>

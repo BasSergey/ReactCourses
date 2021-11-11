@@ -149,3 +149,6 @@ code {
   grid-area: button;
  margin-left: 200px;
 }
+.error{
+  color: red;
+}

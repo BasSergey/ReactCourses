@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import MyModal from "../components/MyModal/MyModal";
 import ModalDel from "../components/MyModal/ModalDel";
 import ModalPost from "../components/MyModal/ModalPost";
+import ReactPaginate from "react-paginate";
 import axios from "axios";
 import Loader from "react-loader-spinner";
+
+
+
+//pagination 
 
 const Posts = (props) => {
   const delay = 1000;
@@ -28,14 +33,29 @@ const Posts = (props) => {
   };
   const postsSearch = getSearch();
 
+
+  const [page, setPage]  = useState(1); //
+  const limit = 10;
+  const pageCount = 100/limit;
+
+  const pageChange = (page)=>{
+    console.log(page);
+    setPage(page.selected+1)
+
+  }
   const fetchPosts = async () => {
-    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts");
+    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts",{
+      params:{
+        _limit:limit, //количество постов на одной странице
+        _page: page //номер страницы
+       }
+    });
     setPosts(posts.data);
     setLoading(false);
   };
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
 
   const [post, setPost] = useState({
@@ -287,6 +307,18 @@ const Posts = (props) => {
             </div>
             ))}
         </div>
+        <ReactPaginate   //pagination
+        className='pagination'
+
+        activeClassName='active'
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={pageChange}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="<"
+        renderOnZeroPageCount={null}
+      />
       </div>
           )}
     </>
