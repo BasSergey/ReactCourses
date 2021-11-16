@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useRef } from "react";   //useRef работает  на подобии навдения мышкой в f12. с current
 import MyModal from "../components/MyModal/MyModal";
 import ModalDel from "../components/MyModal/ModalDel";
 import ModalPost from "../components/MyModal/ModalPost";
@@ -11,19 +11,65 @@ import Loader from "react-loader-spinner";
 //pagination 
 
 const Posts = (props) => {
+  const trigger = useRef(null)
+  const observer = useRef(null)
+  const [posts, setPosts] = useState([]);
+  const [page, setPage]  = useState(1); //
+  const limit = 10;
   const delay = 1000;
   const [loading, setLoading] = useState(true);
-  const [posts, setPosts] = useState(null);
+  const pageCount = 100/limit;
+  const pageChange = (page)=>{
+    // console.log(page);
+    setPage(page.selected+1)
+
+  }
   const [showModal, setshowModal] = useState(false);
   const [idDel, setId] = useState();
   const [filter, setFilter] = useState(posts);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [ShowModalPost, setShowModalPost] = useState(false);
+  
+
+  const fetchPosts = async () => {
+    const postsFetched = await axios.get("https://jsonplaceholder.typicode.com/posts",{
+      params:{
+        _limit:limit, //количество постов на одной странице
+        _page: page //номер страницы
+       }
+    });
+    setPosts([...posts,...postsFetched.data]);
+    setLoading(false);
+  };
+
+  
+  useEffect(()=>{ 
+    const callback = function(entries, observer) { 
+       if(entries[0].isIntersecting){ 
+        setPage(page+1) 
+       } 
+    }; 
+    observer.current = new IntersectionObserver(callback); 
+    observer.current.observe(trigger.current) 
+  },[]); 
+  console.log(trigger.current);
+
+
+  useEffect(() => { 
+    console.log("USE") 
+  fetchPosts(); 
+}, [page]); 
+
+
+
+
+
   const [modalPost, setModalPost] = useState({
     title: "",
     body: "",
     id: "",
   });
+
 
   const getSearch = () => {
     if (filter) {
@@ -34,28 +80,7 @@ const Posts = (props) => {
   const postsSearch = getSearch();
 
 
-  const [page, setPage]  = useState(1); //
-  const limit = 10;
-  const pageCount = 100/limit;
 
-  const pageChange = (page)=>{
-    console.log(page);
-    setPage(page.selected+1)
-
-  }
-  const fetchPosts = async () => {
-    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts",{
-      params:{
-        _limit:limit, //количество постов на одной странице
-        _page: page //номер страницы
-       }
-    });
-    setPosts(posts.data);
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchPosts();
-  }, [page]);
 
 
   const [post, setPost] = useState({
@@ -115,7 +140,7 @@ const Posts = (props) => {
   };
 
   const deletePost = () => {
-    setPosts(posts.filter((post) => post.id !== idDel));
+    // setPosts(posts.filter((post) => post.id !== idDel));
     setShowModalDelete(!showModalDelete);
   };
 
@@ -129,10 +154,13 @@ const Posts = (props) => {
     setShowModalPost(!ShowModalPost);
   };
 
+
+  // console.log(trigger);
   return (
     <>
 
-{loading ? (
+ {/* {loading ? ( */}
+   {/*
             <Loader
               className="loader-center"
               type="BeatLoader	"
@@ -141,8 +169,8 @@ const Posts = (props) => {
               width={100}
               timeout={delay} //3 secs
             />
-          ) : (
-      <div className="App">
+          ) : ( */}
+     
         <div className="containerPosts">
 
         <ModalDel visible={showModalDelete} setVisible={setShowModalDelete}>
@@ -178,7 +206,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.userId}
                   placeholder="Enter userId"
-                  onChange={onChange}
+                  // onChange={onChange}
                 />
               </div>
               <div className="input-field col s6">
@@ -189,7 +217,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.id}
                   placeholder="Enter id"
-                  onChange={onChange}
+                  // onChange={onChange}
                 />
               </div>
               <div className="input-field col s6">
@@ -200,7 +228,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.title}
                   placeholder="Enter title"
-                  onChange={onChange}
+                  // onChange={onChange}
                 />
             </div>
               <div className="input-field col s6">
@@ -211,7 +239,7 @@ const Posts = (props) => {
                   value={post.body}
                   className="validate"
                   placeholder="Enter body"
-                  onChange={onChange}
+                  // onChange={onChange}
                 />
                 <a
 
@@ -273,31 +301,31 @@ const Posts = (props) => {
             <textarea
               id="icon_prefix2"
               className="materialize-textarea"
-              onChange={onChange}
+              // onChange={onChange}
               placeholder="Search by title"
             ></textarea>
           </div>
         </div>
 
 
-        {postsSearch &&
-            postsSearch.map((posts) => (
+        {posts &&
+            posts.map((post) => (   //было postsSearch
               <div class="row" >
               <div class="col s12 m6">
                 <div class="card blue-grey darken-1">
                   <div class="card-content white-text" 
                 onClick={() =>
-                  showPostFunc(posts.id, posts.body, posts.title, posts.userId)
+                  showPostFunc(post.id, post.body, post.title, post.userId)
                 } >
-                    <h5 class="card-title">{posts.title}</h5>
-                    <p>{posts.body}</p>
+                    <h5 class="card-title">{post.title}</h5>
+                    <p>{post.body}</p>
                   </div>
                   <div class="card-action">
-                    <a href="#">{posts.userId}</a>
-                    <a href="#">{posts.id}</a>
+                    <a href="#">{post.userId}</a>
+                    <a href="#">{post.id}</a>
                     <i
                       className="material-icons"
-                      onClick={() => showModalFunc(posts.id)}
+                      onClick={() => showModalFunc(post.id)}
                     >
                       delete
                     </i>
@@ -306,21 +334,29 @@ const Posts = (props) => {
               </div>
             </div>
             ))}
-        </div>
-        <ReactPaginate   //pagination
-        className='pagination'
+            {/* {posts && posts.map((post)=> 
+              <div class="card blue-grey darken-1"> 
+            <div className="card-content white-tex"> 
+                <span class="card-title">{post.title}</span> 
+                <p>{post.body}</p> 
+            </div> 
+            </div>)}  */}
 
-        activeClassName='active'
-        breakLabel="..."
-        nextLabel=">"
-        onPageChange={pageChange}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel="<"
-        renderOnZeroPageCount={null}
-      />
-      </div>
-          )}
+        <div ref={trigger} className="red accent-4">I'am trigger</div> 
+            <ReactPaginate 
+                className="pagination selected" 
+                activeClassName="active" 
+                nextClassName="material-icons" 
+                previousClassName="material-icons" 
+                breakLabel="..." 
+                nextLabel=">" 
+                onPageChange={pageChange} 
+                pageRangeDisplayed={5} 
+                pageCount={pageCount} 
+                previousLabel="<" 
+             /> 
+          </div>
+            {/* )} */}
     </>
   );
 };
