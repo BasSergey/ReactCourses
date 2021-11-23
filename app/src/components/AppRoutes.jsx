@@ -7,6 +7,7 @@ import Posts from "../pages/Posts";
 import Login from "../pages/Login";
 import Loader from "react-loader-spinner";
 import AuthContext from "../context";
+import DesktopToDoList from "../pages/DesktopToDo/DesktopToDoList"
 
 const AppRoutes = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -25,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/devices" component={Devices} />
       <Route path="/posts" component={Posts} />
       <Route path="/home" component={Home} />
+      <Route path="/DesktopToDoList" component={DesktopToDoList}/>
       <Redirect to="/users"></Redirect>
     </Switch>
   ) : (

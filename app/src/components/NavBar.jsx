@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context";
+import DesktopToDoList from "../pages/DesktopToDo/DesktopToDoList";
 
 const NavBar = () => {
   const {setIsAuth} = useContext(AuthContext)
@@ -9,6 +10,7 @@ const NavBar = () => {
     setIsAuth(false)    
   }
   return (
+    <>
     <nav>
       <div className="nav-wrapper">
         <a href="#" className="brand-logo">Logo</a>
@@ -17,6 +19,8 @@ const NavBar = () => {
           <li><Link to='/devices'>Devices</Link></li>
           <li><Link to='/home'>Home</Link></li>
           <li><Link to='/posts'>Posts</Link></li>
+          <li><Link to ='/DesktopToDoList'>To Do List</Link> </li>
+          
           <a 
           class="waves-effect waves-light btn"
           onClick={()=>logout()}
@@ -24,6 +28,7 @@ const NavBar = () => {
         </ul>
       </div>
     </nav>
+  </>
 
   );
 }

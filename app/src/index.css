@@ -130,7 +130,7 @@ code {
   align-items: center;
 }
 
-.containerPosts {
+/* .containerPosts {
 
   display: grid;
   grid-template-columns: 50% 50%;
@@ -139,7 +139,7 @@ code {
   grid-template-areas:
     "button search"
     "row row";
-}
+} */
 
 .search {
   grid-area: search;
@@ -151,4 +151,12 @@ code {
 }
 .error{
   color: red;
+}
+
+.material-icons{
+  cursor:pointer !important;
+}
+
+.selected{
+  cursor: pointer;
 }
