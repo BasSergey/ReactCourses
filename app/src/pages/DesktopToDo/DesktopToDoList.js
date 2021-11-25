@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DesktopToDoForm from "./DesktopToDoForm";
 import DesktopToDo from "./DesktopToDo";
 import DesktopToDoMenu from "./DesktopToDoMenu/DesktopToDoMenu";
-import DesktopAnimatedStrip from "./DesktopAnimatedStrip/DesktopAnimatedStrip";
+
 // import dividerToDo from "../../../img/dividerToDo.svg";
 // import toDoAdd_ from "../../../img/toDoAdd_.svg";
 // import toDoAdd from "../../../img/toDoAdd.svg";
@@ -24,7 +24,7 @@ import DesktopAnimatedStrip from "./DesktopAnimatedStrip/DesktopAnimatedStrip";
 function DesktopToDoList() {
   const [todos, setTodos] = useState([]);
   const [menuActive, setmenuActive] = useState(false);
-  const [animatedStripActive, setanimatedStripActive] = useState(false);
+
   const items = [
     {
       src: "/static/media/calendar.4e8f269d.svg",
@@ -95,19 +95,17 @@ function DesktopToDoList() {
     <>
       <div className="notesContent">
         <div className="notes">
-          <div onClick={() => setanimatedStripActive(!animatedStripActive)}>
-            Example
-          </div>
+
           <div className="notesHeader">
             <div className="notesHeaderHead">
-              <span onClick={() => setmenuActive(!menuActive)}>
+              {/* <span onClick={() => setmenuActive(!menuActive)}>
                 10 сентября 2021 года
-              </span>
-              <div onClick={() => setmenuActive(!menuActive)}>
+              </span> */}
+              {/* <div onClick={() => setmenuActive(!menuActive)}> */}
                 {/* <img src={toDoAdd}></img>
                 <img src={toDoAddPlus}></img>
                 <img src={toDoAdd_}></img> */}
-              </div>
+              {/* </div> */}
               <div>
                 {/* <img src={toDoEdit}></img>
                 <img src={toDoEditPencil}></img>
@@ -131,11 +129,7 @@ function DesktopToDoList() {
         items={items}
         >
         </DesktopToDoMenu>
-        <DesktopAnimatedStrip
-        active={animatedStripActive}
-        setActive={setanimatedStripActive}
-        items={items}
-        />
+
 
         
 

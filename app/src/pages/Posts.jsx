@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"; //useRef работает  на подобии навдения мышкой в f12. с current
+import React, { useState, useEffect, useRef, useContext } from "react"; //useRef работает  на подобии навдения мышкой в f12. с current
 import MyModal from "../components/MyModal/MyModal";
 import ModalDel from "../components/MyModal/ModalDel";
 import ModalPost from "../components/MyModal/ModalPost";
@@ -23,6 +23,7 @@ const Posts = (props) => {
     // console.log(page);
     setPage(page.selected + 1);
   };
+
   const [showModal, setshowModal] = useState(false);
   const [idDel, setId] = useState();
   const [filter, setFilter] = useState(posts);
@@ -61,6 +62,7 @@ const Posts = (props) => {
 
   useEffect(() => {
     fetchPosts();
+    setFilter(posts);
   }, [page]);
 
   const [modalPost, setModalPost] = useState({
@@ -71,11 +73,15 @@ const Posts = (props) => {
 
   const getSearch = () => {
     if (filter) {
-      return filter;
+      setPost (filter);
     }
-    return posts;
+    return setPost(posts);
   };
-  const postsSearch = getSearch();
+  
+
+
+
+
 
   const [post, setPost] = useState({
     userId: "",
@@ -97,18 +103,21 @@ const Posts = (props) => {
     } else {
       setFilter(
         posts.filter(
-          (post) =>
-            post.title.toLowerCase().includes(e.target.value.toLowerCase()) +
-            post.body.toLowerCase().includes(e.target.value.toLowerCase())
-        )
+          (post) =>{
+          return post.title
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
+            // post.body.toLowerCase().includes(e.target.value.toLowerCase())
+          })
       );
     }
   };
+  console.log(filter);
 
   const addPost = () => {
     const id = Math.random() * 1;
     setPost({ ...post, id: id });
-    setPosts([...posts, post]);
+    setPosts([post,...posts]);
     setPost({
       userId: "",
       id: "",
@@ -126,8 +135,14 @@ const Posts = (props) => {
     setId(id);
   };
 
+  useEffect(() => {
+    filter ? setPosts(filter) : setPosts(posts)// fetchPosts();
+    // setFilter(posts);
+  }, [filter]);
+
+
   const deletePost = () => {
-    // setPosts(posts.filter((post) => post.id !== idDel));
+    setPosts(posts.filter((post) => post.id !== idDel));
     setShowModalDelete(!showModalDelete);
   };
 
@@ -141,10 +156,17 @@ const Posts = (props) => {
     setShowModalPost(!ShowModalPost);
   };
 
-  // console.log(trigger);
+
+  // console.log(postsSearch);
+
+  console.log(trigger);
   return (
-    <>
-      <div className="containerPosts">
+    <>     
+
+      <div className="containerPosts" >
+
+
+
         <ModalDel visible={showModalDelete} setVisible={setShowModalDelete}>
           <h6>Точно удалить?</h6>
           <a
@@ -171,7 +193,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.userId}
                   placeholder="Enter userId"
-                  // onChange={onChange}
+                  onChange={onChange}
                 />
               </div>
               <div className="input-field col s6">
@@ -181,7 +203,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.id}
                   placeholder="Enter id"
-                  // onChange={onChange}
+                  onChange={onChange}
                 />
               </div>
               <div className="input-field col s6">
@@ -191,7 +213,7 @@ const Posts = (props) => {
                   className="validate"
                   value={post.title}
                   placeholder="Enter title"
-                  // onChange={onChange}
+                  onChange={onChange}
                 />
               </div>
               <div className="input-field col s6">
@@ -201,7 +223,7 @@ const Posts = (props) => {
                   value={post.body}
                   className="validate"
                   placeholder="Enter body"
-                  // onChange={onChange}
+                  onChange={onChange}
                 />
                 <a
                   className="waves-effect waves-light right btn m-1"
@@ -238,6 +260,18 @@ const Posts = (props) => {
           </div>
         </ModalPost>
 
+        {/* <div className="row"> */}
+          {/* <div className="input-field col s">
+            <i className="material-icons prefix">search</i>
+            <textarea
+              onChange={onChange}
+              id="icon_prefix2"
+              className="materialize-textarea"
+              placeholder="search"
+            ></textarea>
+          </div>
+        </div> */}
+
         <div className="row m-1 button">
           <div className="col s4">
             <a
@@ -249,22 +283,13 @@ const Posts = (props) => {
           </div>
         </div>
 
-        <div className="row search">
-          <div className="inpyut-field col s6">
-            <textarea
-              id="icon_prefix2"
-              className="materialize-textarea"
-              // onChange={onChange}
-              placeholder="Search by title"
-            ></textarea>
-          </div>
-        </div>
+
 
         {posts &&
           posts.map(
             (
-              post //было postsSearch
-            ) => (
+              post 
+              ) => (
               <div class="row">
                 <div class="col s12 m6">
                   <div class="card blue-grey darken-1">

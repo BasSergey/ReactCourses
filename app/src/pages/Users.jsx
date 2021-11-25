@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import UserList from "../components/UserList";
 import MyModal from "../components/MyModal/MyModal";
 import axios from "axios";
 import Loader from "react-loader-spinner";
-
+import { ThemeContext } from "../components/ThemeContext";
+import "../index.css"
 const Users = () => {
   const delay = 1000;
   const [loading, setLoading] = useState(true);
+  const theme = useContext(ThemeContext);
+  const darkMode = theme.state.darkMode;
 
   const fetchUsers = async () => {
     // asyn await помгают сделать функцию асинкронной
@@ -67,7 +70,7 @@ const Users = () => {
 
   return (
     <div className="App">
-      <div className="container">
+      <div className="container" className={`para ${darkMode ? "para-dark" : "para-light"}`}>
         {/* <button onClick={() => fetchUsers()}>LALALA</button> */}
 
         <MyModal visible={showModal} setVisible={setshowModal}>

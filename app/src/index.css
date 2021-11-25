@@ -15,7 +15,72 @@ code {
 .m-1 {
   margin: 1rem;
 }
+/*! THEME */
 
+/* Light Mode Styles */
+
+.bg {
+  /* height: 100vh;
+  padding: 50px;
+  overflow: hidden; */
+  transition: 0.2s all linear;
+}
+
+/* .heading {
+  text-transform: uppercase;
+  transition: 0.2s all linear;
+} */
+
+.btn {
+  transition: 0.2s all linear;
+}
+
+.para {
+  width: 70vw;
+  transition: 0.2s all linear;
+}
+
+/* Light Mode Styles */
+
+.bg-light {
+  background-color: #fff;
+}
+
+.heading-light {
+  color: #222;
+}
+
+.para-light {
+  color: #222;
+}
+
+.btn-light {
+  background-color: #222;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Dark Mode Styles */
+
+.bg-dark {
+  background-color: #222;
+}
+
+.heading-dark {
+  color: #fff;
+}
+
+.para-dark {
+  color: #fff;
+}
+
+.btn-dark {
+  background-color: #fff;
+  color: #222;
+
+}
+/*!  */
 /* Month header */
 .month {
   padding: 70px 25px;
@@ -147,7 +212,7 @@ code {
 }
 .button{
   grid-area: button;
- margin-left: 200px;
+  margin-left: 200px;
 }
 .error{
   color: red;
@@ -160,3 +225,6 @@ code {
 .selected{
   cursor: pointer;
 }
+
+
+

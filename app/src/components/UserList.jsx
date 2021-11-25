@@ -31,7 +31,6 @@ const UserList = (props) => {
       {props.search && (
         <div className="row">
           <div className="inpyut-field col s6">
-            <i className="material-icons prefix">search</i>
             <textarea
               id="icon_prefix2"
               className="materialize-textarea"
