@@ -30,12 +30,13 @@
 
 const http = require("http");
 const hello = require("./hello");
-
+const date = require("./date.js")
+const name = require("./name.js")
 
 
 http.createServer(function(request,response){
      
-    response.end(hello.getMessage('Sergey'));
+    response.end(date.getDate() + name.getName());
      
 }).listen(3000, "127.0.0.1",function(){
     console.log("Сервер начал прослушивание запросов на порту 3000");
