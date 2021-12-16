@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserList from "../components/UserList";
 import MyModal from "../components/MyModal/MyModal";
-import axios from "axios";
+import http from "../http";
 import Loader from "react-loader-spinner";
 import { ThemeContext } from "../components/ThemeContext";
 import "../index.css"
@@ -13,7 +13,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     // asyn await помгают сделать функцию асинкронной
-    const users = await axios.get("https://jsonplaceholder.typicode.com/users");
+    const users = await http.get("/users"); //!работает с файлом http.js, он там закидывает /users  в конец http
     setUsers(users.data);
     setLoading(false);
   };
@@ -45,9 +45,10 @@ const Users = () => {
     
   };
 
-  const addUser = () => {
+  const addUser = async () => {
     const id = Math.random() * 1;
     setUser({ ...user, id: id });
+    const us = await http.post("/users",{name:"dwa", id:5}); //!работает с файлом http.js, он там закидывает /users  в конец http
     setUsers([...users, user]);
     setUser({
       name: "",
