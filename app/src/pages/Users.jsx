@@ -45,23 +45,35 @@ const Users = () => {
     
   };
 
-  const addUser = async () => {
-    const id = Math.random() * 1;
-    setUser({ ...user, id: id });
-    const us = await http.post("/users",{name:"dwa", id:5}); //!работает с файлом http.js, он там закидывает /users  в конец http
-    setUsers([...users, user]);
-    setUser({
-      name: "",
-      username:"",
-      phone: "",
-      email:"",
-
-    });
+  // const addUser = async () => {
+  //   const id = Math.random() * 1;
+  //   setUser({ ...user, id: id });
+  //   const us = await http.post("/users",{name:"dwa", id:5}); //!работает с файлом http.js, он там закидывает /users  в конец http
+  //   setUsers([...users, user]);
+  //   setUser({
+  //     name: "",
+  //     username:"",
+  //     phone: "",
+  //     email:"",
+  //   });
+  // };
+  const addUser = async () => { 
+    const id = Math.random() * 1; 
+    setUser({ ...user, id: id }); 
+    http.post("/users",{...user, id: id}).then((res) => { 
+      console.log(res) 
+      setUsers([...users, user]); 
+    }).catch((err)=>console.log(err))
   };
 
   const removeUser = (id) => {
     const confirm = window.confirm("Реально удалить?");
-    if (confirm == true) setUsers(users.filter((user) => user.id !== id)); //для проверки на удаление
+    if (confirm == true) {
+      http.delete(`/users${id}`).then((res)=>{//! работает с бэк server.js.  (`/users${id}`)передаем с id
+        console.log(res);
+        setUsers(users.filter((user) => user.id !== id))
+      }).catch((err)=>console.log(err))
+    }; //для проверки на удаление
   };
   const clear = () => {
     setUser({ name: "", username:"", phone: "", email:""});

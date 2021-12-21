@@ -47,23 +47,23 @@
 // });
 //!EXPRESS
 //*этот все  
-const express = require('express')
-const app = express()
-// const http = require("http");
-const dotenv = require("dotenv");
-dotenv.config();
-const PORT = process.env.PORT
-const cors = require('cors');
-const bodyParser = require('body-parser')
+// const express = require('express')
+// const app = express()
+// // const http = require("http");
+// const dotenv = require("dotenv");
+// dotenv.config();
+// const PORT = process.env.PORT
+// const cors = require('cors');
+// const bodyParser = require('body-parser')
 
-let users =[{name:'Sergey', id:1},{name:'Suslik',id:2},{name:'Banan',id:3}]
-app.use(bodyParser.json())
-// app.use(function (req, res, next) { //!use дополняет express, расширяет возможности express. Он промежуточный
+// let users =[{name:'Sergey', id:1},{name:'Suslik',id:2},{name:'Banan',id:3}]
+// app.use(bodyParser.json())
+// app.use(function (req, res, next) {
 //     // Website you wish to allow to connect
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
 //     // Request methods you wish to allow
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); //! Методы http
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); 
 
 //     // Request headers you wish to allow
 //     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, applications/json');
@@ -75,20 +75,54 @@ app.use(bodyParser.json())
 //     // Pass to next layer of middleware
 //     next();
 // });
-//* вместо всего выше можно использовать библитотеку cors (https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue), только не решил проблему с bodyParser.json()  
-app.use(cors({ origin: 'http://localhost:3000'}));
 
 
-app.get('/users',(req, res)=>{
-    res.send(users)
-})
-app.post('/users',(req, res)=>{ //! добавляет, получаем эти данные из request. 51строка в Users,jsx
-    console.log(req.body);
-    res.send(users)
-})
 
-app.listen(PORT, () =>{
-    console.log(`Example app listening at http://localhost:${PORT}`);
+const express = require("express"); 
+const bodyParser = require("body-parser"); 
+const app = express(); 
+const dotenv = require('dotenv'); 
+dotenv.config(); 
+const PORT = process.env.PORT 
+const userRouter = require('./routes/userRouter')
+
+app.use(bodyParser.json())  //!use дополняет express, расширяет возможности express. Он промежуточный
+app.use(function(req, res, next) { 
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"); 
+  res.header('Access-Control-Allow-Credentials', 'true') 
+  res.header("Access-Control-Allow-Methods" , "GET,POST,PUT,DELETE,OPTIONS");  //! Методы http
+  next(); 
+  }); 
+
+  app.get('/posts', (req, res) => { 
+    res.send([{userId:1, postBody:'Dont say goobay la la la!'}]) 
+  }) 
+
+app.use('/users', userRouter);
+
+
+// app.get('/users', (req, res) => {  //!получает
+//     res.send(users)  //!ответ
+//   }) 
+// app.post('/users', (req, res) => {   //! добавляет, получаем эти данные из request 51строка в Users,jsx
+//     console.log(req.body); 
+//     res.send(users) 
+//     users.push(req.body)//!чтобв бэк хранил данные, но в идеале нужна база данных
+//   }) 
+// app.delete('/users:indetification', (req, res) => {  //!удаление
+//     console.log(req.params); 
+//    users = users.filter((user)=> user.id !== +req.params.id) //!+ для преобразования строки(indetification который выводится в консоль) в int. Сравниваем id c id
+//     res.send(users);
+//   }) 
+// app.get('/posts', (req, res) => { 
+//     res.send([{userId:1, postBody:'Dont say goobay la la la!'}]) 
+//   }) 
+
+
+
+app.listen(PORT, () => { 
+    console.log(`Сервер начал прослушивание запросов на порту http://localhost:${PORT}`) 
 })
 
 
