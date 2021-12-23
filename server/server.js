@@ -85,6 +85,7 @@ const dotenv = require('dotenv');
 dotenv.config(); 
 const PORT = process.env.PORT 
 const userRouter = require('./routes/userRouter')
+const deviceRouter = require('./routes/deviceRouter')
 
 app.use(bodyParser.json())  //!use дополняет express, расширяет возможности express. Он промежуточный
 app.use(function(req, res, next) { 
@@ -100,6 +101,7 @@ app.use(function(req, res, next) {
   }) 
 
 app.use('/users', userRouter);
+app.use('/devices',deviceRouter)
 
 
 // app.get('/users', (req, res) => {  //!получает

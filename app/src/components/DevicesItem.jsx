@@ -1,4 +1,4 @@
-export const devices = [
+export const devicesValue = [
         {
             id: 1,
             name: 'Samsung A50',
@@ -36,4 +36,4 @@ export const devices = [
             price: 300,
         }
     ]
-export default devices;
+export default devicesValue;

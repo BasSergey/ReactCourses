@@ -3,22 +3,24 @@
 //!КОНТРОЛЛЕР
 //! это все ранее было в server.js немного поменяли, убрали ('/users')...
 
-let users = [ 
-    { name: 'Joseph', id:1, phone:25323232 }, 
-    { name: 'Marish', id:2, phone:25323232 }, 
-    { name: 'Johni', id:3, phone:25323232 }, 
-  ] 
+const User = require("../models/UserModel.js");
  exports.getAll= (req, res) => {  //!получает все
-    res.send(users)  //!ответ
+    res.send(User.getAll())  //!ответ
   }
-  exports.addUser=(req, res) => {   //! добавляет, получаем эти данные из request 51строка в Users,jsx
-    console.log(req.body); 
-    users.push(req.body)//!чтобв бэк хранил данные, но в идеале нужна база данных
-    res.send(users) 
+exports.addUser=(req, res) => {   //! добавляет, получаем эти данные из request 51строка в Users,jsx
+    // users.push(req.body)//!чтобв бэк хранил данные, но в идеале нужна база данных
+    // res.send(users) 
+
+    const user = new User(req.body);
+    user.save();
+    res.send(User.getAll());
   }
-  exports.deleteUser = (req, res) => {  //!удаление
-    users = users.filter((user)=> user.id !== +req.params.id) //!+ для преобразования строки(indetification который выводится в консоль) в int. Сравниваем id c id
-    console.log(users); 
-    res.send(users);
+exports.deleteUser = (req, res) => {  //!удаление
+    // users = users.filter((user)=> user.id !== +req.params.id) //!+ для преобразования строки(indetification который выводится в консоль) в int. Сравниваем id c id
+    User.delete(+req.params.id);
+    res.send(User.getAll());
   }
-  
+
+
+
+  //TODO сделать такую же штуку с devices. Добавить добавление удаление + изменение
