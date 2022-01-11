@@ -12,7 +12,7 @@ const Users = () => {
   const darkMode = theme.state.darkMode;
 
   const fetchUsers = async () => {
-    // asyn await помгают сделать функцию асинкронной
+    //! asyn await помгают сделать функцию асинкронной
     const users = await http.get("/users"); //!работает с файлом http.js, он там закидывает /users  в конец http
     setUsers(users.data);
     setLoading(false);
