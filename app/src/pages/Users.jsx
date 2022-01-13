@@ -27,7 +27,6 @@ const Users = () => {
     username:"",
     phone: "",
     email:"",
-
   });
 
   const onChange = (e) => {
@@ -42,7 +41,6 @@ const Users = () => {
     else{
       setUser({ ...user, username: e.target.value });
     }
-    
   };
 
   // const addUser = async () => {
@@ -59,8 +57,8 @@ const Users = () => {
   // };
   const addUser = async () => { 
     const id = Math.random() * 1; 
-    setUser({ ...user, id: id }); 
-    http.post("/users/",{...user, id: id}).then((res) => { 
+    setUser({ ...user}); 
+    http.post("/users/",{...user}).then((res) => { 
       console.log(res) 
       setUsers([...users, user]); 
     }).catch((err)=>console.log(err))
@@ -78,7 +76,7 @@ const Users = () => {
   const clear = () => {
     setUser({ name: "", username:"", phone: "", email:""});
   };
-  console.log(user);
+  
   const [showModal, setshowModal] = useState(false);
 
   return (
@@ -107,7 +105,7 @@ const Users = () => {
                   type="text"
                   className="validate"
                   value={user.username}
-                  placeholder="Enter Name"
+                  placeholder="Enter username"
                   onChange={onChange}
                 />
               </div>

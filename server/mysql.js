@@ -54,14 +54,15 @@ const connection = mysql.createConnection({
 //     console.log(results);
 // });
 //! *********************************************
-//   connection.query("SELECT * FROM devices",
-//   function(err, results, fields) {
-//     console.log(err)
-//     console.log(results); // собственно данные
-//     console.log(fields); // мета-данные полей 
-//  });
-// connection.end();
+  connection.query("SELECT * FROM users",
+  function(err, results, fields) {
+    console.log(err)
+    console.log(results); // собственно данные
+    console.log(fields); // мета-данные полей 
+ });
+connection.end();
 
  //? https://metanit.com/web/nodejs/8.1.php
  //? https://metanit.com/web/nodejs/8.2.php
  //? https://metanit.com/web/nodejs/8.4.php
+ //? https://metanit.com/web/nodejs/8.6.php

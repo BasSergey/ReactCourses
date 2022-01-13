@@ -5,16 +5,26 @@ import http from "../http";
 
 const Devices = () => {
   const [phones, setPhones] = useState(null);
-  const [devices, setDevices] = useState(null);
+
 
   // const setPhones = async()=>{
   //   const devices = await http.get('/devices');
   //   setDevices(devices.data)
   // }
-  //TODO сделать на подобии User.jsx. Проблема с переменными phones и их выводом
+  // TODO сделать на подобии User.jsx. Проблема с переменными phones и их выводом
+
+  // const fetchDevices = async () => {
+  //   //! asyn await помгают сделать функцию асинкронной
+  //   const devices = await http.get("/devices"); //!работает с файлом http.js, он там закидывает /devices  в конец http
+  //   setDevices(devices.data);
+  //   // setLoading(false);
+  // };
+
+  const [devices, setDevices] = useState(null);
 
   useEffect(() => {
     setPhones(devicesValue)
+    
   }, [])
   const value = [
     "Apple",
