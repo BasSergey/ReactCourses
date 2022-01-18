@@ -28,6 +28,7 @@
 // // 5 поток 
 
 //!HTTTP
+//!  
 // const http = require("http");
 // const dotenv = require("dotenv");
 // dotenv.config();
@@ -75,18 +76,22 @@
 //     // Pass to next layer of middleware
 //     next();
 // });
-
-
-
+//! Терминология 
+//! process - обьект, с помощью которого можно получить текущий процесс  
+//! process.env.PORT переменные окружения   
+//! process.exit() можно завершать процесс
+ 
 const express = require("express"); 
 const bodyParser = require("body-parser"); 
 const app = express(); 
 const dotenv = require('dotenv'); 
-dotenv.config(); 
+dotenv.config(); //! мы импортировали и подкл файл .env 
 const PORT = process.env.PORT 
 const userRouter = require('./routes/userRouter')
 const deviceRouter = require('./routes/deviceRouter')
 
+const db = require('./models/index') //! для рабоыт с базой данных 
+db.sequelize.sync();
 app.use(bodyParser.json())  //!use дополняет express, расширяет возможности express. Он промежуточный
 app.use(function(req, res, next) { 
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
@@ -101,7 +106,7 @@ app.use(function(req, res, next) {
   }) 
 
 app.use('/users', userRouter);
-app.use('/devices',deviceRouter)
+// app.use('/devices',deviceRouter); 
 
 
 // app.get('/users', (req, res) => {  //!получает

@@ -1,6 +1,10 @@
-const Device  = require("..models/DeviceModel.js");
+// const Device  = require("../models/DeviceModel.js");
 
-exports.deleteDevice=(req, res) =>{
-    Device.delete(+req.params.id);
-    // res.send(Device.getAll());
-}
+// exports.getAll=(req, res)=>{
+//     res.send(Device.getAll())
+// }
+// exports.deleteDevice=(req, res) =>{
+//     Device.delete(+req.params.id);
+//     res.send(Device.getAll());
+// }
+

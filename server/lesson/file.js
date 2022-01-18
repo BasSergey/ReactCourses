@@ -4,6 +4,7 @@ const path = require('path')
 //!path - путь к файлу
 //!data - содержимое файла
 
+
 //! CRUD 
 const writeFileAsync = async (path, data) => {
     return new Promise((resolve, reject) => fs.writeFile(path,data, (err) => {

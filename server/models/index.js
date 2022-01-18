@@ -10,6 +10,6 @@ const sequelize = new Sequelize("nodedb", "root", "serGa13#", {
 db = {};
 db.sequelize = sequelize;//!подключение от базы данныз
 db.Sequelize = Sequelize;
-//! для того чтобы мы могли этим обьектом везде использовать(если вдруг будет несколько бд и нужно будет где то из выщывать)
 db.users = require('./UserModel')(sequelize,Sequelize); //!передаем sequelize,Sequelize
 module.exports = db;
+//!Таким образом объект db доступен в любом месте проекта. В данном файле мы делаем всю настройку касающуюся базы данных
