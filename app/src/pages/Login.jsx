@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../context";
 import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
+import Registration from "../pages/Registration";
+import http from "../http";
+
 
 const Login = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -21,11 +25,15 @@ const Login = () => {
     
   }
 
-  const login =()=>{   //функция
-    if(loginData.login === inputData.login&& loginData.pass===inputData.pass){
+  const login = () =>{ 
+    http.post('/login', inputData).then((res)=>{
+      if(res.data.message){
+        setError(res.message)
+        return 
+      }
       localStorage.setItem('auth','true')
       setIsAuth(true)
-    }
+    }).catch((err)=>setError('Wrong data'))
     setError("Error")
   }
   console.log(inputData);
@@ -33,7 +41,7 @@ const Login = () => {
 
   return (
     <>
-    <div className="container">
+    <form className="container">
       <h3>Log in</h3>
 
       <div className="input-field col s6">
@@ -61,17 +69,19 @@ const Login = () => {
         
           <div className="col s4">
           
-            <a
+            {/* <a
               className="waves-effect waves-light btn"
               onClick={() => login()}
             >
               Log in
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
-
-    </div>
+      <a onClick={()=>login()} className="waves-effect waves-light btn m-1">Login</a>
+      <Link className="waves-effect waves-light btn m-1" to='/registration'>Registration</Link>
+    </form>
+  
     </>
   );
 };

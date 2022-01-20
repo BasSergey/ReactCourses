@@ -87,6 +87,7 @@ const Users = () => {
         <MyModal visible={showModal} setVisible={setshowModal}>
           {
             <>
+  
               <div className="input-field col s6">
                 <i className="material-icons prefix">account_circle</i>
                 <input

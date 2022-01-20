@@ -35,9 +35,19 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
         },
         phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
+        },
+        password: {
+            type: Sequelize.STRING
+        },
+        email:{
+            type: Sequelize.STRING
+        },
+        role:{
+            type: Sequelize.STRING
         }
     });
     return User
+
 }
 //!Это модель пользователя в который мы указываем тип данных

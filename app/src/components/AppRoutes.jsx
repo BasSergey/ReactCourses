@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Loader from "react-loader-spinner";
 import AuthContext from "../context";
 import DesktopToDoList from "../pages/DesktopToDo/DesktopToDoList"
+import Registration from "../pages/Registration";
 
 const AppRoutes = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -32,6 +33,7 @@ const AppRoutes = () => {
   ) : (
     <Switch>
       <Route path="/login" component={Login} />
+      <Route path="/registration" component={Registration} />
       <Redirect to="/login" />
     </Switch>
   );

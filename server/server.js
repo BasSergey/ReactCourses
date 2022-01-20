@@ -89,8 +89,9 @@ dotenv.config(); //! мы импортировали и подкл файл .env
 const PORT = process.env.PORT 
 const userRouter = require('./routes/userRouter')
 const deviceRouter = require('./routes/deviceRouter')
+const db = require('./models/index'); //! для рабоыт с базой данных 
+const authRouter = require("./routes/authRouter");
 
-const db = require('./models/index') //! для рабоыт с базой данных 
 db.sequelize.sync();
 app.use(bodyParser.json())  //!use дополняет express, расширяет возможности express. Он промежуточный
 app.use(function(req, res, next) { 
@@ -106,6 +107,7 @@ app.use(function(req, res, next) {
   }) 
 
 app.use('/users', userRouter);
+app.use('/', authRouter)
 // app.use('/devices',deviceRouter); 
 
 
