@@ -18,6 +18,8 @@ const Users = () => {
     setLoading(false);
   };
   useEffect(() => {
+    const token = localStorage.getItem('token')
+    console.log(token)
     fetchUsers();
   }, []);
 

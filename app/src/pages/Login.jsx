@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import Registration from "../pages/Registration";
 import http from "../http";
-
+import { authIntercepter } from "../authIntercepter";
 
 const Login = () => {
   const { isAuth, setIsAuth } = useContext(AuthContext);
@@ -32,6 +32,9 @@ const Login = () => {
         return 
       }
       localStorage.setItem('auth','true')
+      localStorage.setItem('token', res.data.token)
+      // http.authIntercepter.reqest.use(authIntercepter);
+      http.interceptors.request.use(authIntercepter);
       setIsAuth(true)
     }).catch((err)=>setError('Wrong data'))
     setError("Error")
