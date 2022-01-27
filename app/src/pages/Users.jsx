@@ -4,7 +4,7 @@ import MyModal from "../components/MyModal/MyModal";
 import http from "../http";
 import Loader from "react-loader-spinner";
 import { ThemeContext } from "../components/ThemeContext";
-import "../index.css"
+import "../index.css";
 const Users = () => {
   const delay = 1000;
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ const Users = () => {
   };
   useEffect(() => {
     const token = localStorage.getItem('token')
-    console.log(token)
+    // console.log(token)
     fetchUsers();
   }, []);
 
@@ -71,7 +71,7 @@ const Users = () => {
     if (confirm == true) {
       http.delete(`/users/${id}`).then((res)=>{//! работает с бэк server.js.  (`/users${id}`)передаем с id
         console.log(res);
-        setUsers(users.filter((user) => user.id !== id))
+        // setUsers(users.filter((user) => user.id !== id))
       }).catch((err)=>console.log(err))
     }; //для проверки на удаление
   };
@@ -150,7 +150,7 @@ const Users = () => {
             </>
           }
         </MyModal>
-        <div className="row m-1">
+        {/* <div className="row m-1">
           <div className="col s4">
             <a
               className="waves-effect waves-light btn"
@@ -160,7 +160,7 @@ const Users = () => {
             </a>
           </div>
           <div className="col s8"></div>
-        </div>
+        </div> */}
         {loading ? (
           <Loader
             className="loader-center"

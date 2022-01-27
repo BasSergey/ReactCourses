@@ -12,17 +12,22 @@ const generateToken =( id, role)=>{
 }
 
 exports.login = async (req, res) => {  //!async чтобы функция была асихр, так идет работа с бд
+    console.log(req.body)
     const{login, pass} = req.body; //! эти данные из Login, так как мы их отправляем оттуда
     const user = await User.findOne({raw:true, where: {name:login}}) //! user это то что вводим при логе
     // console.log(user);
     const validPassword = bcrypt.compareSync(pass, user.password) //! этот метод узнает пароль и пребр его
+   
     if(validPassword){
+        console.log(validPassword)
         const token = generateToken(user.id, user.role)
+        console.log(token)
         return res.send({token}) //! и отправляем токен на фронт
     }else{
         return res.send({message:"Wrong password"})
     }
 }
+
 exports.registration = async (req, res) => { 
     //! создание нового пользователя
     const userExist = await User.findOne({raw:true, where: {name:req.body.name}}) //! user это то что вводим при логе

@@ -44,7 +44,7 @@ exports.deleteUser = (req,res) => { //DELETE FROM users WHERE name=?
  // User.delete(+req.params.id);
  // res.send(User.getAll()); //! было
 
-  const id = +req.params.id
+ const id = +req.params.id
   User.destroy({
       where: {
        id: id

@@ -22,10 +22,9 @@ const Login = () => {
       field[e.target.id]=e.target.value 
       setinputData(({...inputData,...field}))
       setError('')
-    
   }
 
-  const login = () =>{ 
+  const login = () => { 
     http.post('/login', inputData).then((res)=>{
       if(res.data.message){
         setError(res.message)
@@ -39,7 +38,7 @@ const Login = () => {
     }).catch((err)=>setError('Wrong data'))
     setError("Error")
   }
-  console.log(inputData);
+  // console.log(inputData);
 
 
   return (

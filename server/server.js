@@ -88,6 +88,7 @@ const dotenv = require('dotenv');
 dotenv.config(); //! мы импортировали и подкл файл .env 
 const PORT = process.env.PORT 
 const userRouter = require('./routes/userRouter')
+const computerRouter = require("./routes/computerRouter")
 const deviceRouter = require('./routes/deviceRouter')
 const db = require('./models/index'); //! для рабоыт с базой данных 
 const authRouter = require("./routes/authRouter");
@@ -96,7 +97,7 @@ db.sequelize.sync();
 app.use(bodyParser.json())  //!use дополняет express, расширяет возможности express. Он промежуточный
 app.use(function(req, res, next) { 
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); 
-  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"); 
+  res.header("Access-Control-Allow-Headers", "auth, Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"); 
   res.header('Access-Control-Allow-Credentials', 'true') 
   res.header("Access-Control-Allow-Methods" , "GET,POST,PUT,DELETE,OPTIONS");  //! Методы http
   next(); 
@@ -106,8 +107,19 @@ app.use(function(req, res, next) {
     res.send([{userId:1, postBody:'Dont say goobay la la la!'}]) 
   }) 
 
+  app.get('/posts', (req, res) => { 
+    res.send([{computerId:1, postBody:'Dont say goobay la la la!'}]) 
+  }) 
+
 app.use('/users', userRouter);
 app.use('/', authRouter)
+
+app.use('/computers',computerRouter);
+
+
+app.listen(PORT, () => { 
+  console.log(`Сервер начал прослушивание запросов на порту http://localhost:${PORT}`) 
+})
 // app.use('/devices',deviceRouter); 
 
 
@@ -130,8 +142,5 @@ app.use('/', authRouter)
 
 
 
-app.listen(PORT, () => { 
-    console.log(`Сервер начал прослушивание запросов на порту http://localhost:${PORT}`) 
-})
 
 

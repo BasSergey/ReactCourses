@@ -23,6 +23,7 @@ const NavBar = () => {
           <li><Link to='/home'>Home</Link></li>
           <li><Link to='/posts'>Posts</Link></li>
           <li><Link to ='/DesktopToDoList'>To Do List</Link> </li>
+          <li><Link to='/computers'>Computers</Link></li>
           
           <a 
           class="waves-effect waves-light btn"

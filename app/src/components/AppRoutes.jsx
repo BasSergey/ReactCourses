@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Users from "../pages/Users";
+import Computers from "../pages/Computers"
 import Devices from "../pages/Devices";
 import Home from "../pages/Home";
 import Posts from "../pages/Posts";
@@ -28,6 +29,8 @@ const AppRoutes = () => {
       <Route path="/posts" component={Posts} />
       <Route path="/home" component={Home} />
       <Route path="/DesktopToDoList" component={DesktopToDoList}/>
+      <Route path="/computers" component={Computers}/>
+      
       <Redirect to="/users"></Redirect>
     </Switch>
   ) : (

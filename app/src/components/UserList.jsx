@@ -20,7 +20,7 @@ const UserList = (props) => {
     // console.log(e.target.value)
     setFilter(
       props.children.filter((user) =>
-        user.email.toLowerCase().includes(e.target.value.toLowerCase())
+        user.name.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
   }; //перебирание пользоватей с выводом в консоль(до сейчас setFilter ), toLowerCase() для того чтобы в независимости от высокого низкого текста, он выводился
@@ -48,7 +48,6 @@ const UserList = (props) => {
             <th>Phone</th>
             <th>Email</th>
             <th>Delete</th>
-
           </tr>
         </thead>
 

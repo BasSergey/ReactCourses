@@ -11,5 +11,7 @@ db = {};
 db.sequelize = sequelize;//!подключение от базы данныз
 db.Sequelize = Sequelize;
 db.users = require('./UserModel')(sequelize,Sequelize); //!передаем sequelize,Sequelize
+db.computers = require('./ComputerModel')(sequelize,Sequelize); //!передаем sequelize,Sequelize
+
 module.exports = db;
 //!Таким образом объект db доступен в любом месте проекта. В данном файле мы делаем всю настройку касающуюся базы данных
