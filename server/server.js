@@ -123,6 +123,7 @@ app.listen(PORT, () => {
 // app.use('/devices',deviceRouter); 
 
 
+
 // app.get('/users', (req, res) => {  //!получает
 //     res.send(users)  //!ответ
 //   }) 

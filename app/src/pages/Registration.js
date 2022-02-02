@@ -17,7 +17,6 @@ function Registration() {
         http.post('/registration', user).then((res)=>{
             console.log(res);
           }).catch((err)=>console.log(err))
-
     }
     return (
 

@@ -15,6 +15,7 @@ function DesktopToDoForm(props) {
       
         const handleSubmit = e => {
           e.preventDefault();
+
       
           props.onSubmit({
             id: Math.floor(Math.random() * 10000),
